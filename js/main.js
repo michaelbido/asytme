@@ -53,9 +53,11 @@ function initMap() {
     var markerImage = 'heart-icon.png';
 
     var contentString = '<div class="info-window">' +
-    '<h3>Info Window Content</h3>' +
+    '<h3>Emergency Information</h3>' +
     '<div class="info-content">' +
-    '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>' +
+    '<p> Name: Bob </p>'+
+    '<p>Test: Test</p>'+
+    '<button type="button" class="btn btn-success btn-lg" ID="btn_Helping">Help This Person</button>' +
     '</div>' +
     '</div>';
 
@@ -74,8 +76,8 @@ function initMap() {
             userLat = pos.lat;
             userLng = pos.lng;
             infowindow.setPosition(pos);
-            infowindow.setContent('Location found.');
-            infowindow.open(map);
+            //infowindow.setContent('Location found.');
+            //infowindow.open(map);
             map.setCenter(pos);
 
             var location = new google.maps.LatLng(userLat, userLng);
