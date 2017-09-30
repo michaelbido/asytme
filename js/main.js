@@ -1,3 +1,4 @@
+////////////////////////////////////////////////////////////////////DO NOT DELETE
 $(function () {
 
    var config = {
@@ -10,7 +11,7 @@ $(function () {
  };
  firebase.initializeApp(config);
  var database=firebase.database();
-
+/////////////////////////////////////////////////////////////////////////////
 
  $('#Post').on('click', function(e){
     alert("POSTING!!!!!!!!!");
