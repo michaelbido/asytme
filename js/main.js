@@ -17,7 +17,7 @@ $(function () {
     var database=firebase.database();
 /////////////////////////////////////////////////////////////////////////////
 
-    $('#Post').on('click', function(e){
+    $('#HelpMe').on('click', function(e){
         alert("POSTING!!!!!!!!!");
 
         var testJson = {
