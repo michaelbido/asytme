@@ -11,24 +11,6 @@ $(function () {
      projectId: "hack-fbbed",
      storageBucket: "",
      messagingSenderId: "451916850408"
-<<<<<<< HEAD
-=======
- };
- firebase.initializeApp(config);
- var database=firebase.database();
-/////////////////////////////////////////////////////////////////////////////
-
-//mando
- $('#HELPME').on('click', function(e){
-    alert("POSTING!!!!!!!!!");
-
-    var testJson={
-        Sender:"Test",
-        Timestamp:"Test",
-        LocationLong:"here",
-        LocationLat:"here"
-
->>>>>>> 54e2f662d1fcf9ab99dba2cc0c2a50cf7fcf07f4
     };
     
     firebase.initializeApp(config);
@@ -118,5 +100,4 @@ function initMap() {
     }
 
 }
-
 
