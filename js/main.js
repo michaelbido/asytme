@@ -21,7 +21,7 @@ $(function () {
         Sender:"Test",
         Timestamp:"Test",
         LocationLong:"here",
-        LocationLat:"here";
+        LocationLat:"here"
 
     };
     //firebase.database().ref().child('Flood').push.key();
@@ -80,27 +80,27 @@ function initMap() {
             infowindow.setContent('Location found.');
             infowindow.open(map);
             map.setCenter(pos);
+
+            var location = new google.maps.LatLng(userLat, userLng);
+            
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+                //icon: markerImage
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+
         }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
         });
     } 
     else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
     }
-
-    var location = new google.maps.LatLng(userLat, userLng);
-    
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        icon: markerImage
-    });
-
-    marker.addListener('click', function () {
-        infowindow.open(map, marker);
-    });
-
 
 }
 
