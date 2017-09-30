@@ -13,7 +13,7 @@ $(function () {
  var database=firebase.database();
 /////////////////////////////////////////////////////////////////////////////
 
-
+//mando
  $('#HELPME').on('click', function(e){
     alert("POSTING!!!!!!!!!");
 
