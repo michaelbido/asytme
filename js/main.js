@@ -13,17 +13,21 @@ $(function () {
  var database=firebase.database();
 /////////////////////////////////////////////////////////////////////////////
 
+
  $('#Post').on('click', function(e){
     alert("POSTING!!!!!!!!!");
 
 
     var testJson={
-        Test:"Test",
-        Test_2:"Test"
+        Sender:"Test",
+        Timestamp:"Test",
+        LocationLong:"here",
+        LocationLat:"here";
+
     };
     //firebase.database().ref().child('Flood').push.key();
     var id="John"
-    firebase.database().ref('/hack-fbbed/' + id +'/').push(testJson, function(e)
+    firebase.database().ref('Flood/' + id +'/').push(testJson, function(e)
         {   
             console.log(e);
         });
