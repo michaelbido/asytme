@@ -1,3 +1,6 @@
+var userLat = 0;
+var userLng = 0;
+
 ////////////////////////////////////////////////////////////////////DO NOT DELETE
 $(function () {
 
@@ -8,38 +11,32 @@ $(function () {
      projectId: "hack-fbbed",
      storageBucket: "",
      messagingSenderId: "451916850408"
- };
- firebase.initializeApp(config);
- var database=firebase.database();
+    };
+    
+    firebase.initializeApp(config);
+    var database=firebase.database();
 /////////////////////////////////////////////////////////////////////////////
 
+    $('#Post').on('click', function(e){
+        alert("POSTING!!!!!!!!!");
 
- $('#Post').on('click', function(e){
-    alert("POSTING!!!!!!!!!");
-
-    var testJson={
-        Sender:"Test",
-        Timestamp:"Test",
-        LocationLong:"here",
-        LocationLat:"here"
-
-    };
-    //firebase.database().ref().child('Flood').push.key();
-    var id="John"
-    firebase.database().ref('Flood/' + id +'/').push(testJson, function(e)
-        {   
-            console.log(e);
-        });
-
- });
-
+        var testJson = {
+            Sender:"Test",
+            Timestamp:"Test",
+            LocationLong: userLat,
+            LocationLat: userLng
+        };
+        //firebase.database().ref().child('Flood').push.key();
+        var id="John"
+        firebase.database().ref('Flood/' + id +'/').push(testJson, function(e)
+            {   
+                console.log(e);
+            });
+    });
     //google.maps.event.addDomListener(window, 'load', initMap);
 });
 
 function initMap() {
-
-    var userLat;
-    var userLng;
 
     var mapCanvas = document.getElementById('map');
     var mapOptions = {
@@ -53,7 +50,7 @@ function initMap() {
     var map = new google.maps.Map(mapCanvas, mapOptions);
     map.set('styles',style);
 
-    var markerImage = 'marker.png';
+    var markerImage = 'heart-icon.png';
 
     var contentString = '<div class="info-window">' +
     '<h3>Info Window Content</h3>' +
@@ -85,8 +82,8 @@ function initMap() {
             
             var marker = new google.maps.Marker({
                 position: location,
-                map: map
-                //icon: markerImage
+                map: map,
+                icon: markerImage
             });
 
             marker.addListener('click', function () {
