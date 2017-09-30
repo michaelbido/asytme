@@ -14,7 +14,7 @@ $(function () {
 /////////////////////////////////////////////////////////////////////////////
 
 
- $('#Post').on('click', function(e){
+ $('#HELPME').on('click', function(e){
     alert("POSTING!!!!!!!!!");
 
     var testJson={
