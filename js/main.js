@@ -17,7 +17,6 @@ $(function () {
  $('#Post').on('click', function(e){
     alert("POSTING!!!!!!!!!");
 
-
     var testJson={
         Sender:"Test",
         Timestamp:"Test",
@@ -32,8 +31,6 @@ $(function () {
             console.log(e);
         });
 
-
-
  });
 
     //google.maps.event.addDomListener(window, 'load', initMap);
@@ -41,11 +38,12 @@ $(function () {
 
 function initMap() {
 
-    var location = new google.maps.LatLng(50.0875726, 14.4189987);
+    var userLat;
+    var userLng;
 
     var mapCanvas = document.getElementById('map');
     var mapOptions = {
-        center: location,
+        center: {lat: -34.397, lng: 150.644},
         zoom: 16,
         panControl: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -57,12 +55,6 @@ function initMap() {
 
     var markerImage = 'marker.png';
 
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        icon: markerImage
-    });
-
     var contentString = '<div class="info-window">' +
     '<h3>Info Window Content</h3>' +
     '<div class="info-content">' +
@@ -73,6 +65,36 @@ function initMap() {
     var infowindow = new google.maps.InfoWindow({
         content: contentString,
         maxWidth: 400
+    });
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+            };
+            userLat = pos.lat;
+            userLng = pos.lng;
+            infowindow.setPosition(pos);
+            infowindow.setContent('Location found.');
+            infowindow.open(map);
+            map.setCenter(pos);
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } 
+    else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+    var location = new google.maps.LatLng(userLat, userLng);
+    
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        icon: markerImage
     });
 
     marker.addListener('click', function () {
