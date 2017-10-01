@@ -45,8 +45,8 @@ $('#submit_Help').on('click', function(e){
         		var testJson = {
         			Sender:$('#help_Name').val(),
         			Timestamp: timerval,
-        			//Type:$('#help_Emergency').val(),
-        			beingRescued:false,
+        			//Type:$( "#help_Emergency:radio" ),
+        			beingRescued:'false',
         			Contact:$('#help_contact').val(),
         			LocationLong: userLat,
         			LocationLat: userLng
@@ -101,8 +101,7 @@ function initMap() {
             userLat = pos.lat;
             userLng = pos.lng;
             infowindow.setPosition(pos);
-            //infowindow.setContent('Location found.');
-            //infowindow.open(map);
+            
             map.setCenter(pos);
             sideMap.setCenter(pos);
             // map2.setCenter(pos);
@@ -204,12 +203,12 @@ function btn_Helping()
 	  firebase.database().ref(temp.key).set({
 	  				Sender:temp.Sender,
         			Timestamp: temp.Timestamp,
-        			Type:temp.Type,
-        			beingRescued:true,
+        			//Type:temp.Type,
+        			beingRescued:'true',
         			LocationLong: temp.LocationLong,
         			LocationLat: temp.LocationLat
 
 	  });
-
+	  reloadPins();
 
 }
