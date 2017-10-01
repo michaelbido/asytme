@@ -39,45 +39,25 @@ $('#submit_Help').on('click', function(e){
 
 			userLat = pos.lat;
 			userLng = pos.lng;
-			alert("Sending Request");	
+			alert("Your Request for Help is being Sent!");	
         		var timerval= new Date(new Date().getTime()).toLocaleTimeString(); // 11:18:48 AM
 
         		var testJson = {
         			Sender:$('#help_Name').val(),
         			Timestamp: timerval,
-        			Type:$('#help_Emergency').val(),
+        			//Type:$('#help_Emergency').val(),
         			beingRescued:false,
+        			Contact:$('#help_contact').val(),
         			LocationLong: userLat,
         			LocationLat: userLng
         		};
-    		//infowindow.setPosition(pos);
-            //infowindow.setContent('Location found.');
-            //infowindow.open(map); 
-            //map.setCenter(pos);
-
-            //Post data
-            var id="jojo"
+    		
             firebase.database().ref().push(testJson, function(e)
             {   
             	console.log(e);
             });
 
-            //var location = new google.maps.LatLng(userLat, userLng);
-            
-            /*
-            var marker = new google.maps.Marker({
-            	position: location,
-            	map: map,
-            	icon: markerImage,
-            	data: testJson
-            });
-
-            marker.addListener('click', function () {
-            	infowindow.setContent(generateContent(data));
-            	infowindow.open(map, marker);
-            });
-            */
-            reloadPins();
+           reloadPins();
         }, function() {
         	handleLocationError(true, infoWindow, map.getCenter());
         });
@@ -97,7 +77,7 @@ function initMap() {
 	
 	var mapOptions = {
 		center: {lat: 32.73, lng: -97.11},
-		zoom: 16,
+		zoom: 3,
 		panControl: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
@@ -174,12 +154,25 @@ function reloadPins()
 		arr.forEach(function(entry) {
 			//console.log(entry);
 
-			var marker = new google.maps.Marker({
+			if (entry.beingRescued=='false')
+			{
+				var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
 				icon: markerImage,
 				data:entry
-			});
+				});
+			}
+
+			else 
+			var marker = new google.maps.Marker({
+				position: {lat: entry.LocationLong, lng: entry.LocationLat},
+				map: map,
+				icon: "marker.png",
+				data:entry
+				}
+				);
+
 			marker.addListener('click', function () {
 				infowindow.open(map, marker);
 				temp=entry;
@@ -189,7 +182,7 @@ function reloadPins()
 					'<p> Name: ' +entry.Sender+' </p>'+
 					'<p>Emergency: '+entry.Type+'</p>'+
 					'<p>Time Posted: '+entry.Timestamp+'</p>'+
-					'<p>Being Rescued?: '+entry.beingRescued+'</p>'+
+					//'<p>Being Rescued?: '+entry.beingRescued+'</p>'+
 					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()">Help This Person</button>' +
 					'</div>' +
 					'</div>');
@@ -201,29 +194,13 @@ function reloadPins()
 
 $('#btn_Helpingn').on('click', function(e)
 {
-	alert("jasfklfjaklfak");
+	alert("You are committing to rescue this person, continue?");
 });
 function btn_Helping()
 {
 	var tempObj;
 	alert(temp.Sender);
 	
-	/*
-	var testRead= firebase.database().ref();
-	testRead.on('value', function(snapshot){
-		var arr=snapshotToArray(snapshot);
-		arr.forEach(function(entry) {
-			//Do something here
-			console.log(entry.key);
-			if(temp.Sender==entry.Sender)
-			{
-				console.log(temp.Sender + ' ' +entry.Sender);
-				tempObj=entry.key;
-			}
-			console.log(tempObj);
-		});
-	});
-	*/
 	  firebase.database().ref(temp.key).set({
 	  				Sender:temp.Sender,
         			Timestamp: temp.Timestamp,
