@@ -81,20 +81,20 @@ $('#submit_Help').on('click', function(e){
             */
             reloadPins();
         }, function() {
-        	handleLocationError(true, infoWindow, map.getCenter());
+        	//handleLocationError(true, infoWindow, map.getCenter());
         });
 	} 
 	else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+       // handleLocationError(false, infoWindow, map.getCenter());
     }
 
 });
-	var database = firebase.database().ref();
-	database.on('value', function()
-	{
-		reloadPins();
-	});
+var database = firebase.database().ref();
+database.on('value', function()
+{
+	reloadPins();
+});
 
 
 });
@@ -118,30 +118,21 @@ function initMap() {
 	map.set('styles',style);
 	sideMap.set('styles',style);
 	
-<<<<<<< HEAD
-
-	markerImage = 'sos-icon.png' ;
 
 
 	markerImage = 'sos-icon.png';
 	markerImage2= 'rescuer-icon.png';
 
-=======
-	markerImage = 'sos-icon.png' ;
-
-	markerImage = 'heart-icon.png';
-	markerImage2= 'rescuer-icon.png';
->>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
 	// Try HTML5 geolocation.
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            userLat = pos.lat;
-            userLng = pos.lng;
-            infowindow.setPosition(pos);
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var pos = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			};
+			userLat = pos.lat;
+			userLng = pos.lng;
+			infowindow.setPosition(pos);
             //infowindow.setContent('Location found.');
             //infowindow.open(map);
             map.setCenter(pos);
@@ -149,21 +140,21 @@ function initMap() {
             // map2.setCenter(pos);
 
         }, function() {
-            handleLocationError(true, infowindow, map.getCenter());
+        	//handleLocationError(true, infowindow, map.getCenter());
         });
-    } 
-    else {
+	} 
+	else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
 
 
-	infowindow = new google.maps.InfoWindow({
-		maxWidth: 400
-	});
-	
-	
-	reloadPins()
+    infowindow = new google.maps.InfoWindow({
+    	maxWidth: 400
+    });
+
+
+    reloadPins()
 }
 
 
@@ -198,46 +189,31 @@ function reloadPins()
 			//console.log(entry);
 			if(entry.beingRescued==true)
 			{
-<<<<<<< HEAD
-
-=======
->>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
+				/*
 				var marker = new google.maps.Marker({
-				position: {lat: entry.LocationLong, lng: entry.LocationLat},
-				map: map,
-				animation: google.maps.Animation.DROP,
+					position: {lat: entry.LocationLong, lng: entry.LocationLat},
+					map: map,
+					animation: google.maps.Animation.DROP,
 
-				icon: markerImage,
-				data:entry
+					icon: markerImage,
+					data:entry
 				});
-<<<<<<< HEAD
-
-=======
->>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
+				*/
 				tmp=markerImage2;
 			}
 			else{
 				tmp=markerImage;
-<<<<<<< HEAD
-
-=======
->>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
 			}
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
-<<<<<<< HEAD
-
 				animation: google.maps.Animation.DROP,
 				icon: "rescuer-icon.png",
 
 				icon: tmp,
-
-=======
 				animation: google.maps.Animation.DROP,
 				icon: "rescuer-icon.png",
 				icon: tmp,
->>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
 				data:entry
 			});
 			marker.addListener('click', function () {
@@ -251,7 +227,7 @@ function reloadPins()
 					'<p>Time Posted: '+entry.Timestamp+'</p>'+
 					'<p>Contact Info: '+entry.contact+'</p>'+
 					'<p>Being Rescued?: '+entry.beingRescued+'</p>'+
-					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()" <a href ="mailto:'+entry.contact+'@txt.att.net?subject=test message">Help This Person</button>' +
+					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()">Help This Person</button>' +
 					'</div>' +
 					'</div>');
 			});
@@ -282,24 +258,24 @@ function btn_Helping()
 		});
 	});
 	*/
-	  firebase.database().ref(temp.key).set({
-	  				Sender:temp.Sender,
-        			Timestamp: temp.Timestamp,
-        			Type:temp.Type,
-        			beingRescued:true,
-        			contact:temp.contact,
-        			LocationLong: temp.LocationLong,
-        			LocationLat: temp.LocationLat
+	firebase.database().ref(temp.key).set({
+		Sender:temp.Sender,
+		Timestamp: temp.Timestamp,
+		Type:temp.Type,
+		beingRescued:true,
+		contact:temp.contact,
+		LocationLong: temp.LocationLong,
+		LocationLat: temp.LocationLat
 
-	  });
+	});
 }
 
 
 function clearOverlays() {
-  for (var i = 0; i < markers.length; i++ ) {
-    markers[i].setMap(null);
-  }
-  markers.length = 0;
+	for (var i = 0; i < markers.length; i++ ) {
+		markers[i].setMap(null);
+	}
+	markers.length = 0;
 }
 
 
