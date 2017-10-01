@@ -100,7 +100,7 @@ function initMap() {
 	
 	var mapOptions = {
 		center: {lat: 32.73, lng: -97.11},
-		zoom: 16,
+		zoom: 4,
 		panControl: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
@@ -207,7 +207,7 @@ function reloadPins()
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
-				icon: "marker.png",
+				icon: "rescuer-icon.png",
 				data:entry
 				}
 				);
