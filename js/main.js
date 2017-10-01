@@ -105,11 +105,16 @@ function initMap() {
 	map = new google.maps.Map(mapCanvas, mapOptions);
 	sideMap = new google.maps.Map(sideMapCanvas, mapOptions);
 	
+	var heatMapData = [
+		new google.maps.LatLng(32.732551, -97.1145368),
+		new google.maps.LatLng(32.732745, -97.1144586),
+		new google.maps.LatLng(32.732842, -97.1143688)
+	];
+	var heatMapArray = new google.maps.MVCArray(heatMapData);
+
 	map.set('styles',style);
 	sideMap.set('styles',style);
 	
-
-
 
 	// Try HTML5 geolocation.
 	if (navigator.geolocation) {
@@ -147,6 +152,19 @@ function initMap() {
 		radius: 20,
 		opacity: 1
 	});
+
+	function getPoints() {
+		//Generate points from DB
+		var heatPoints= firebase.database().ref();
+		heatPoints.on('value', function(snapshot){
+			var array=snapshotToArray(snapshot);
+			array.forEach(function(entry) {
+				console.log(entry);
+				heatMapArray.push(new google.maps.LatLng(entry.LocationLong, entry.LocationLat));
+			});
+		});
+		return heatMapArray;
+	}
 
 	function getPoints() {
 		//Generate points from DB
