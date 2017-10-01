@@ -17,7 +17,7 @@ $(function () {
     var database=firebase.database();
 /////////////////////////////////////////////////////////////////////////////
 
-    $('#HelpMe').on('click', function(e){
+    $('#HELPME').on('click', function(e){
         alert("POSTING!!!!!!!!!");
 
         var testJson = {
@@ -34,6 +34,15 @@ $(function () {
             });
     });
     //google.maps.event.addDomListener(window, 'load', initMap);
+
+    var id="John"
+    var testRead= firebase.database().ref('Flood/' + id + '/');
+    testRead.on('value', function(snapshot){
+    	console.log(snapshot.val());
+    	var arr=snapshot.val();
+    	console.log(arr[0].position);
+
+    });
 });
 
 function initMap() {
@@ -73,6 +82,7 @@ function initMap() {
             lat: position.coords.latitude,
             lng: position.coords.longitude
             };
+            pos.lat+= getRandom(0.0001,-0.0001);
             userLat = pos.lat;
             userLng = pos.lng;
             infowindow.setPosition(pos);
@@ -101,5 +111,11 @@ function initMap() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
 
+}
+
+
+
+function getRandom(min, max) {
+  return Math.random() * (max - min) + min;
 }
 
