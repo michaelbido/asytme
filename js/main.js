@@ -137,7 +137,10 @@ function snapshotToArray(snapshot) {
 function reloadPins()
 {
 	//Generate points from DB
+<<<<<<< HEAD
 	var id="jojo"
+=======
+>>>>>>> 14cabef1a1bcc0c869fe64e6d271334b9e08b075
 	var testRead= firebase.database().ref();
 	testRead.on('value', function(snapshot){
 		var arr=snapshotToArray(snapshot);
