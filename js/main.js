@@ -118,6 +118,7 @@ function initMap() {
 	map.set('styles',style);
 	sideMap.set('styles',style);
 	
+<<<<<<< HEAD
 
 	markerImage = 'sos-icon.png' ;
 
@@ -125,6 +126,12 @@ function initMap() {
 	markerImage = 'sos-icon.png';
 	markerImage2= 'rescuer-icon.png';
 
+=======
+	markerImage = 'sos-icon.png' ;
+
+	markerImage = 'heart-icon.png';
+	markerImage2= 'rescuer-icon.png';
+>>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
 	// Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -191,7 +198,10 @@ function reloadPins()
 			//console.log(entry);
 			if(entry.beingRescued==true)
 			{
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
 				var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
@@ -200,22 +210,34 @@ function reloadPins()
 				icon: markerImage,
 				data:entry
 				});
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
 				tmp=markerImage2;
 			}
 			else{
 				tmp=markerImage;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
 			}
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
+<<<<<<< HEAD
 
 				animation: google.maps.Animation.DROP,
 				icon: "rescuer-icon.png",
 
 				icon: tmp,
 
+=======
+				animation: google.maps.Animation.DROP,
+				icon: "rescuer-icon.png",
+				icon: tmp,
+>>>>>>> 9da9c91afe3b57756d37e3666aadf2d8c718dad8
 				data:entry
 			});
 			marker.addListener('click', function () {
