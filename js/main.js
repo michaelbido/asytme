@@ -3,11 +3,13 @@ var userLng = 0;
 var map;
 var sideMap;
 var infowindow;
-var markerImage;
-var makerImage2;
+var markerImage = 'sos-icon.png';
+var	markerImage2= 'rescuer-icon.png';
+	
 var temp;
 var markers=[];
-////////////////////////////////////////////////////////////////////DO NOT DELETE
+
+
 $(function () {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
@@ -24,9 +26,6 @@ $(function () {
 	}
 
 	firebase.initializeApp(config);
-	//var database=firebase.database();
-/////////////////////////////////////////////////////////////////////////////
-
 
 $('#submit_Help').on('click', function(e){
 
@@ -64,29 +63,14 @@ $('#submit_Help').on('click', function(e){
             	console.log(e);
             });
 
-            //var location = new google.maps.LatLng(userLat, userLng);
-            
-            /*
-            var marker = new google.maps.Marker({
-            	position: location,
-            	map: map,
-            	icon: markerImage,
-            	data: testJson
-            });
-
-            marker.addListener('click', function () {
-            	infowindow.setContent(generateContent(data));
-            	infowindow.open(map, marker);
-            });
-            */
             reloadPins();
         }, function() {
-        	//handleLocationError(true, infoWindow, map.getCenter());
+        	handleLocationError(true, infoWindow, map.getCenter());
         });
 	} 
 	else {
         // Browser doesn't support Geolocation
-       // handleLocationError(false, infoWindow, map.getCenter());
+        handleLocationError(false, infoWindow, map.getCenter());
     }
 
 });
@@ -102,7 +86,7 @@ database.on('value', function()
 function initMap() {
 
 	var mapCanvas = document.getElementById('map');
-	var sideMapCanvas = document.getElementById('sideMap');
+	var sideMapCanvas = document.getElementById('sideMap'); 
 	
 	var mapOptions = {
 		center: {lat: 32.73, lng: -97.11},
@@ -120,8 +104,6 @@ function initMap() {
 	
 
 
-	markerImage = 'sos-icon.png';
-	markerImage2= 'rescuer-icon.png';
 
 	// Try HTML5 geolocation.
 	if (navigator.geolocation) {
@@ -189,16 +171,6 @@ function reloadPins()
 			//console.log(entry);
 			if(entry.beingRescued==true)
 			{
-				/*
-				var marker = new google.maps.Marker({
-					position: {lat: entry.LocationLong, lng: entry.LocationLat},
-					map: map,
-					animation: google.maps.Animation.DROP,
-
-					icon: markerImage,
-					data:entry
-				});
-				*/
 				tmp=markerImage2;
 			}
 			else{
@@ -207,12 +179,6 @@ function reloadPins()
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
-				animation: google.maps.Animation.DROP,
-				icon: "rescuer-icon.png",
-
-				icon: tmp,
-				animation: google.maps.Animation.DROP,
-				icon: "rescuer-icon.png",
 				icon: tmp,
 				data:entry
 			});
@@ -240,24 +206,7 @@ function reloadPins()
 function btn_Helping()
 {
 	var tempObj;
-	//alert(temp.Sender);
-	
-	/*
-	var testRead= firebase.database().ref();
-	testRead.on('value', function(snapshot){
-		var arr=snapshotToArray(snapshot);
-		arr.forEach(function(entry) {
-			//Do something here
-			console.log(entry.key);
-			if(temp.Sender==entry.Sender)
-			{
-				console.log(temp.Sender + ' ' +entry.Sender);
-				tempObj=entry.key;
-			}
-			console.log(tempObj);
-		});
-	});
-	*/
+
 	firebase.database().ref(temp.key).set({
 		Sender:temp.Sender,
 		Timestamp: temp.Timestamp,
