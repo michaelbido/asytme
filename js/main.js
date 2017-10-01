@@ -113,7 +113,7 @@ function initMap() {
 	map.set('styles',style);
 	sideMap.set('styles',style);
 	
-	markerImage = 'heart-icon2.png' ;
+	markerImage = 'sos-icon.png' ;
 
 	// Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -199,6 +199,8 @@ function reloadPins()
 				var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
+				animation: google.maps.Animation.DROP,
+
 				icon: markerImage,
 				data:entry
 				});
@@ -208,6 +210,7 @@ function reloadPins()
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
+				animation: google.maps.Animation.DROP,
 				icon: "rescuer-icon.png",
 				data:entry
 				}
