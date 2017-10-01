@@ -87,6 +87,12 @@ function initMap() {
 
 	var mapCanvas = document.getElementById('map');
 	var sideMapCanvas = document.getElementById('sideMap'); 
+
+	var heatMapData = [
+		new google.maps.LatLng(32.732551, -97.1145368),
+		new google.maps.LatLng(32.732745, -97.1144586)
+	];
+	var heatMapArray = new google.maps.MVCArray(heatMapData);	
 	
 	var mapOptions = {
 		center: {lat: 32.73, lng: -97.11},
@@ -135,6 +141,25 @@ function initMap() {
     	maxWidth: 400
     });
 
+	heatmap = new google.maps.visualization.HeatmapLayer({
+		data: getPoints(),
+		map: sideMap,
+		radius: 20,
+		opacity: 1
+	});
+
+	function getPoints() {
+		//Generate points from DB
+		var heatPoints= firebase.database().ref();
+		heatPoints.on('value', function(snapshot){
+			var array=snapshotToArray(snapshot);
+			array.forEach(function(entry) {
+				console.log(entry);
+				heatMapArray.push(new google.maps.LatLng(entry.LocationLong, entry.LocationLat));
+			});
+		});
+		return heatMapArray;
+	}
 
     reloadPins()
 }
