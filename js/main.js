@@ -17,7 +17,7 @@ $(function () {
 		projectId: "hack-fbbed",
 		storageBucket: "",
 		messagingSenderId: "451916850408"
-	};
+	}
 
 	firebase.initializeApp(config);
 	var database=firebase.database();
@@ -33,6 +33,8 @@ $('#submit_Help').on('click', function(e){
         			lng: position.coords.longitude
         		};
         		pos.lat+= getRandom(0.0001,-0.0001);
+        		pos.lng+= getRandom(0.0001,-0.0001);
+
         		userLat = pos.lat;
         		userLng = pos.lng;
         		alert("Sending Request");	
@@ -40,7 +42,7 @@ $('#submit_Help').on('click', function(e){
         	
         		var testJson = {
         			Sender:$('#help_Name').val(),
-        			Timestamp:timerval,
+        			Timestamp: timerval,
         			Type:$('#help_Emergency').val(),
         			LocationLong: userLat,
         			LocationLat: userLng
@@ -51,13 +53,13 @@ $('#submit_Help').on('click', function(e){
             //map.setCenter(pos);
 
             //Post data
-            //var id="jojo"
-            firebase.database().ref($('#help_Emergency').val()+'/' + $('#help_Name').val()).push(testJson, function(e)
+            var id="jojo"
+            firebase.database().ref('hack-fbbed/' + id +'/').push(testJson, function(e)
             {   
             	console.log(e);
             });
 
-            var location = new google.maps.LatLng(userLat, userLng);
+            //var location = new google.maps.LatLng(userLat, userLng);
             
             /*
             var marker = new google.maps.Marker({
@@ -135,12 +137,12 @@ function snapshotToArray(snapshot) {
 function reloadPins()
 {
 	//Generate points from DB
-	var id="John"
-	var testRead= firebase.database().ref('hack-fbbed');
+	var id="jojo"
+	var testRead= firebase.database().ref('flood/'+id+'/');
 	testRead.on('value', function(snapshot){
 		var arr=snapshotToArray(snapshot);
 		arr.forEach(function(entry) {
-			console.log(entry);
+			//console.log(entry);
 
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
