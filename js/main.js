@@ -39,12 +39,17 @@ $('#submit_Help').on('click', function(e){
         		pos.lat+= getRandom(0.0001,-0.0001);
         		userLat = pos.lat;
         		userLng = pos.lng;
-        		alert(userLat);
+        		alert(userLat);	
+        		var timerval= new Date(new Date().getTime()).toLocaleTimeString(); // 11:18:48 AM
+        		//var d= new date();
+        		//var t1=d.getHours();
+        		//var t2=d.getMinutes();
+        		//var timerval=t1+':'+ t2;
 
 
         		var testJson = {
         			Sender:$('#help_Name').val(),
-        			Timestamp:"Test",
+        			Timestamp:timerval,
         			Type:$('#help_Emergency').val(),
         			LocationLong: userLat,
         			LocationLat: userLng
@@ -55,8 +60,8 @@ $('#submit_Help').on('click', function(e){
             //map.setCenter(pos);
 
             //Post data
-            var id="John"
-            firebase.database().ref('Flood/' + id).push(testJson, function(e)
+            //var id="jojo"
+            firebase.database().ref($('#help_Emergency').val()+'/' + $('#help_Name').val()).push(testJson, function(e)
             {   
             	console.log(e);
             });
