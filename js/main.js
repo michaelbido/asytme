@@ -41,8 +41,8 @@ $('#submit_Help').on('click', function(e){
 			userLat = pos.lat;
 			userLng = pos.lng;
 			alert("Sending Request");	
-        		var timerval= new Date(new Date().getTime()).toLocaleTimeString(); // 11:18:48 AM
-
+        		//var timerval= new Date(new Date().getTime()).toLocaleTimeString(); // 11:18:48 AM
+        		var timerval="a";
         		var testJson = {
         			Sender:$('#help_Name').val(),
         			Timestamp: timerval,
@@ -65,12 +65,12 @@ $('#submit_Help').on('click', function(e){
 
             reloadPins();
         }, function() {
-        	handleLocationError(true, infoWindow, map.getCenter());
+        	//handleLocationError(true, infoWindow, map.getCenter());
         });
 	} 
 	else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        //handleLocationError(false, infoWindow, map.getCenter());
     }
 
 });
@@ -179,15 +179,12 @@ function reloadPins()
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
-<<<<<<< HEAD
 				
 				icon: "rescuer-icon.png",
 
 				icon: tmp,
 				
 				icon: "rescuer-icon.png",
-=======
->>>>>>> 766a9e262953339b8ed25b6879514d46397de7e8
 				icon: tmp,
 				data:entry
 			});
