@@ -35,49 +35,11 @@
 
 </head>
 <body >
-<body>
-    <!-- Map container -->
-    <div id="map_canvas"></div>
-</body>
+
 
 	
 	<center><img src="pngLogo3.png" width="40%" alt=""/center>
-	<!-- Navigation 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="pngLogo3.png" width="30%" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    -->
-
-
-
-<!--	<img src = "pngLogo.png" width="25%"
-         alt = "Picture of a logo" /> -->
+	
 
 
 	<div id="mySidenav" class="sidenav">
@@ -94,10 +56,10 @@
 	<!--Map container -->
 	<div id="main">
 		<span id="sideBarButton" onclick="openNav()"> Heat Map View</span>
-		<div class="container" id="map"></div>
+		
 		<div class ="col-med-4 text-center" id = "controls">
-			<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#helpSubmission" ID="HELPME">I Need Help</button>
-
+				<button id="one" type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#helpSubmission" ID="HELPME">I Need Help</button>
+			
 			<!--Modal Form for a help request -->
 			<div class="modal fade" id="helpSubmission" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -192,7 +154,11 @@
 			</div>
 		</div>
 	</div>
-
+<body>
+    <!-- Map container -->
+    <div id="map_canvas"></div>
+</body>
+<div class="container" id="map"></div>
 
 	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
