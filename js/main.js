@@ -45,7 +45,7 @@ $('#submit_Help').on('click', function(e){
         		var testJson = {
         			Sender:$('#help_Name').val(),
         			Timestamp: timerval,
-        			//Type:$( "#help_Emergency:radio" ),
+        			Type:$('#help_Emergency').val(),
         			beingRescued:'false',
         			Contact:$('#help_contact').val(),
         			LocationLong: userLat,
@@ -243,7 +243,7 @@ function btn_Helping()
 	  firebase.database().ref(temp.key).set({
 	  				Sender:temp.Sender,
         			Timestamp: temp.Timestamp,
-        			//Type:temp.Type,
+        			Type:temp.Type,
         			beingRescued:'true',
         			LocationLong: temp.LocationLong,
         			LocationLat: temp.LocationLat
