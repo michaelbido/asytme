@@ -54,7 +54,7 @@ $('#submit_Help').on('click', function(e){
     		
             firebase.database().ref().push(testJson, function(e)
             {   
-            	console.log(e);
+            	//console.log(e);
             });
 
            reloadPins();
@@ -144,7 +144,7 @@ function initMap() {
 	});
 	
 	heatmap = new google.maps.visualization.HeatmapLayer({
-		data: heatMapArray,
+		data: getPoints(),
 		map: sideMap
 	});
 
@@ -154,7 +154,7 @@ function initMap() {
 		heatPoints.on('value', function(snapshot){
 			var array=snapshotToArray(snapshot);
 			array.forEach(function(entry) {
-				console.log(entry);
+				//console.log(entry);
 				heatMapArray.push(new google.maps.LatLng(entry.LocationLat, entry.LocationLong));
 			});
 		});
