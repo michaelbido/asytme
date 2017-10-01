@@ -25,11 +25,6 @@ $(function () {
 
 
 $('#submit_Help').on('click', function(e){
-	//alert("POSTING!!!!!!!!!");
-
-
-        //firebase.database().ref().child('Flood').push.key();
-
 
         if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(function(position) {
@@ -42,12 +37,7 @@ $('#submit_Help').on('click', function(e){
         		userLng = pos.lng;
         		alert(userLat);	
         		var timerval= new Date(new Date().getTime()).toLocaleTimeString(); // 11:18:48 AM
-        		//var d= new date();
-        		//var t1=d.getHours();
-        		//var t2=d.getMinutes();
-        		//var timerval=t1+':'+ t2;
-
-
+        	
         		var testJson = {
         			Sender:$('#help_Name').val(),
         			Timestamp:timerval,
@@ -93,9 +83,6 @@ $('#submit_Help').on('click', function(e){
     }
 
 });
-
-
-
 });
 
 function initMap() {
@@ -149,7 +136,7 @@ function reloadPins()
 {
 	//Generate points from DB
 	var id="John"
-	var testRead= firebase.database().ref('Flood/' + id +'');
+	var testRead= firebase.database().ref('hack-fbbed');
 	testRead.on('value', function(snapshot){
 		var arr=snapshotToArray(snapshot);
 		arr.forEach(function(entry) {
