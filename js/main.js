@@ -4,7 +4,9 @@ var map;
 var sideMap;
 var infowindow;
 var markerImage;
+var makerImage2;
 var temp;
+var markers=[];
 ////////////////////////////////////////////////////////////////////DO NOT DELETE
 $(function () {
 	if (navigator.geolocation) {
@@ -22,7 +24,7 @@ $(function () {
 	}
 
 	firebase.initializeApp(config);
-	var database=firebase.database();
+	//var database=firebase.database();
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -39,26 +41,45 @@ $('#submit_Help').on('click', function(e){
 
 			userLat = pos.lat;
 			userLng = pos.lng;
-			alert("Your Request for Help is being Sent!");	
+			alert("Sending Request");	
         		var timerval= new Date(new Date().getTime()).toLocaleTimeString(); // 11:18:48 AM
 
         		var testJson = {
         			Sender:$('#help_Name').val(),
         			Timestamp: timerval,
         			Type:$('#help_Emergency').val(),
-        			beingRescued:'false',
-        			Contact:$('#help_contact').val(),
+        			beingRescued:false,
+        			contact:$('#help_contact').val(),
         			LocationLong: userLat,
         			LocationLat: userLng
-        			//Picture:"bg2.png"
         		};
-    		
+    		//infowindow.setPosition(pos);
+            //infowindow.setContent('Location found.');
+            //infowindow.open(map); 
+            //map.setCenter(pos);
+
+            //Post data
             firebase.database().ref().push(testJson, function(e)
             {   
-            	//console.log(e);
+            	console.log(e);
             });
 
-           reloadPins();
+            //var location = new google.maps.LatLng(userLat, userLng);
+            
+            /*
+            var marker = new google.maps.Marker({
+            	position: location,
+            	map: map,
+            	icon: markerImage,
+            	data: testJson
+            });
+
+            marker.addListener('click', function () {
+            	infowindow.setContent(generateContent(data));
+            	infowindow.open(map, marker);
+            });
+            */
+            reloadPins();
         }, function() {
         	handleLocationError(true, infoWindow, map.getCenter());
         });
@@ -69,39 +90,23 @@ $('#submit_Help').on('click', function(e){
     }
 
 });
+	var database = firebase.database().ref();
+	database.on('value', function()
+	{
+		reloadPins();
+	});
+
+
 });
 
 function initMap() {
 
 	var mapCanvas = document.getElementById('map');
 	var sideMapCanvas = document.getElementById('sideMap');
-	var heatMapData = [
-		new google.maps.LatLng(32.732551, -97.1145368),
-		new google.maps.LatLng(32.732745, -97.1144586),
-		new google.maps.LatLng(32.732842, -97.1143688),
-		new google.maps.LatLng(32.732919, -97.1142815),
-		new google.maps.LatLng(32.732992, -97.1142112),
-		new google.maps.LatLng(32.733100, -97.1141461),
-		new google.maps.LatLng(32.733206, -97.1140829),
-		new google.maps.LatLng(32.733273, -97.1140324),
-		new google.maps.LatLng(32.733316, -97.1140023),
-		new google.maps.LatLng(32.733357, -97.1139794),
-		new google.maps.LatLng(32.733371, -97.1139687),
-		new google.maps.LatLng(32.733368, -97.1139666),
-		new google.maps.LatLng(32.733383, -97.1139594),
-		new google.maps.LatLng(32.733508, -97.1139525),
-		new google.maps.LatLng(32.733842, -97.1139591),
-		new google.maps.LatLng(32.734147, -97.1139668),
-		new google.maps.LatLng(32.734206, -97.1139686),
-		new google.maps.LatLng(32.734386, -97.1139790),
-		new google.maps.LatLng(32.734701, -97.1139902),
-		new google.maps.LatLng(32.734965, -97.1139938)
-	];
-	var heatMapArray = new google.maps.MVCArray(heatMapData);	
 	
 	var mapOptions = {
 		center: {lat: 32.73, lng: -97.11},
-		zoom: 4,
+		zoom: 16,
 		panControl: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
@@ -113,8 +118,13 @@ function initMap() {
 	map.set('styles',style);
 	sideMap.set('styles',style);
 	
+<<<<<<< HEAD
 	markerImage = 'sos-icon.png' ;
 
+=======
+	markerImage = 'heart-icon.png';
+	markerImage2= 'rescuer-icon.png';
+>>>>>>> 9bfcc8b284acb99838fef6ae039a8b0f000780e0
 	// Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -125,7 +135,8 @@ function initMap() {
             userLat = pos.lat;
             userLng = pos.lng;
             infowindow.setPosition(pos);
-            
+            //infowindow.setContent('Location found.');
+            //infowindow.open(map);
             map.setCenter(pos);
             sideMap.setCenter(pos);
             // map2.setCenter(pos);
@@ -144,24 +155,7 @@ function initMap() {
 		maxWidth: 400
 	});
 	
-	heatmap = new google.maps.visualization.HeatmapLayer({
-		data: getPoints(),
-		map: sideMap
-	});
-
-	function getPoints() {
-		//Generate points from DB
-		var heatPoints= firebase.database().ref();
-		heatPoints.on('value', function(snapshot){
-			var array=snapshotToArray(snapshot);
-			array.forEach(function(entry) {
-				//console.log(entry);
-				heatMapArray.push(new google.maps.LatLng(entry.LocationLat, entry.LocationLong));
-			});
-		});
-		return heatMapData;
-	}
-
+	
 	reloadPins()
 }
 
@@ -187,15 +181,17 @@ function snapshotToArray(snapshot) {
 
 function reloadPins()
 {
+	clearOverlays();
+	var tmp;
 	//Generate points from DB
 	var testRead= firebase.database().ref();
 	testRead.on('value', function(snapshot){
 		var arr=snapshotToArray(snapshot);
 		arr.forEach(function(entry) {
 			//console.log(entry);
-
-			if (entry.beingRescued=='false')
+			if(entry.beingRescued==true)
 			{
+<<<<<<< HEAD
 				var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
@@ -204,18 +200,24 @@ function reloadPins()
 				icon: markerImage,
 				data:entry
 				});
+=======
+				tmp=markerImage2;
 			}
-
-			else 
+			else{
+				tmp=markerImage;
+>>>>>>> 9bfcc8b284acb99838fef6ae039a8b0f000780e0
+			}
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
+<<<<<<< HEAD
 				animation: google.maps.Animation.DROP,
 				icon: "rescuer-icon.png",
+=======
+				icon: tmp,
+>>>>>>> 9bfcc8b284acb99838fef6ae039a8b0f000780e0
 				data:entry
-				}
-				);
-
+			});
 			marker.addListener('click', function () {
 				infowindow.open(map, marker);
 				temp=entry;
@@ -225,34 +227,58 @@ function reloadPins()
 					'<p> Name: ' +entry.Sender+' </p>'+
 					'<p>Emergency: '+entry.Type+'</p>'+
 					'<p>Time Posted: '+entry.Timestamp+'</p>'+
-					//'<p>Being Rescued?: '+entry.beingRescued+'</p>'+
-					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()">Help This Person</button>' +
+					'<p>Contact Info: '+entry.contact+'</p>'+
+					'<p>Being Rescued?: '+entry.beingRescued+'</p>'+
+					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()" <a href ="mailto:'+entry.contact+'@txt.att.net?subject=test message">Help This Person</button>' +
 					'</div>' +
 					'</div>');
 			});
+			markers.push(marker);
 		});
 	});
-};
+}; 
 
 
-$('#btn_Helpingn').on('click', function(e)
-{
-	alert("Unknown");
-});
 function btn_Helping()
 {
 	var tempObj;
-	alert("You are commiting to rescue this person: " + temp.Sender+", continue?");
+	//alert(temp.Sender);
 	
+	/*
+	var testRead= firebase.database().ref();
+	testRead.on('value', function(snapshot){
+		var arr=snapshotToArray(snapshot);
+		arr.forEach(function(entry) {
+			//Do something here
+			console.log(entry.key);
+			if(temp.Sender==entry.Sender)
+			{
+				console.log(temp.Sender + ' ' +entry.Sender);
+				tempObj=entry.key;
+			}
+			console.log(tempObj);
+		});
+	});
+	*/
 	  firebase.database().ref(temp.key).set({
 	  				Sender:temp.Sender,
         			Timestamp: temp.Timestamp,
         			Type:temp.Type,
-        			beingRescued:'true',
+        			beingRescued:true,
+        			contact:temp.contact,
         			LocationLong: temp.LocationLong,
         			LocationLat: temp.LocationLat
 
 	  });
-	  reloadPins();
-
 }
+
+
+function clearOverlays() {
+  for (var i = 0; i < markers.length; i++ ) {
+    markers[i].setMap(null);
+  }
+  markers.length = 0;
+}
+
+
+
