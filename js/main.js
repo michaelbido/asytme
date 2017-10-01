@@ -35,7 +35,7 @@ $('#submit_Help').on('click', function(e){
         		pos.lat+= getRandom(0.0001,-0.0001);
         		userLat = pos.lat;
         		userLng = pos.lng;
-        		alert(userLat);	
+        		alert("Sending Request");	
         		var timerval= new Date(new Date().getTime()).toLocaleTimeString(); // 11:18:48 AM
         	
         		var testJson = {
