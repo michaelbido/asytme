@@ -23,6 +23,7 @@ $(function () {
 	var database=firebase.database();
 /////////////////////////////////////////////////////////////////////////////
 
+
 $('#submit_Help').on('click', function(e){
 	//alert("POSTING!!!!!!!!!");
 
@@ -88,6 +89,8 @@ $('#submit_Help').on('click', function(e){
 
 });
 
+
+
 });
 
 function initMap() {
@@ -106,14 +109,7 @@ function initMap() {
 
 	markerImage = 'heart-icon.png';
 
-	var contentString = '<div class="info-window">' +
-	'<h3>Emergency Information</h3>' +
-	'<div class="info-content">' +
-	'<p> Name: Bob </p>'+
-	'<p>Test: Test</p>'+
-	'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping">Help This Person</button>' +
-	'</div>' +
-	'</div>';
+
 
 	
 	infowindow = new google.maps.InfoWindow({
@@ -168,23 +164,17 @@ function reloadPins()
 					'<p> Name: ' +entry.Sender+' </p>'+
 					'<p>Emergency: '+entry.Type+'</p>'+
 					'<p>Time Posted: '+entry.Timestamp+'</p>'+
-					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping">Help This Person</button>' +
+					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()">Help This Person</button>' +
 					'</div>' +
 					'</div>');
 			});
 		});
 	});
-}
+};
 
 
-function generateContent(entry){
-	return '<div class="info-window">' +
-	'<h3>Emergency Information</h3>' +
-	'<div class="info-content">' +
-	'<p> Name: ' +data.Sender+' </p>'+
-	'<p>Emergency: '+data.Type+'</p>'+
-	'<p>Time Posted: '+data.Timestamp+'</p>'+
-	'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping">Help This Person</button>' +
-	'</div>' +
-	'</div>';
+
+function btn_Helping()
+{
+	alert("WEEEEEEE");
 }
