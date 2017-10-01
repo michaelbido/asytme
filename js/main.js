@@ -109,7 +109,7 @@ function initMap() {
 	map.set('styles',style);
 	sideMap.set('styles',style);
 	
-	markerImage = 'heart-icon.png';
+	markerImage = 'heart-icon2.png' ;
 
 	// Try HTML5 geolocation.
     if (navigator.geolocation) {
