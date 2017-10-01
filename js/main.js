@@ -54,7 +54,7 @@ $('#submit_Help').on('click', function(e){
 
             //Post data
             var id="jojo"
-            firebase.database().ref('hack-fbbed/' + id +'/').push(testJson, function(e)
+            firebase.database().ref().push(testJson, function(e)
             {   
             	console.log(e);
             });
@@ -137,8 +137,7 @@ function snapshotToArray(snapshot) {
 function reloadPins()
 {
 	//Generate points from DB
-	var id="jojo"
-	var testRead= firebase.database().ref('flood/'+id+'/');
+	var testRead= firebase.database().ref();
 	testRead.on('value', function(snapshot){
 		var arr=snapshotToArray(snapshot);
 		arr.forEach(function(entry) {
