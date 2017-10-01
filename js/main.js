@@ -3,6 +3,7 @@ var userLng = 0;
 var map;
 var infowindow;
 var markerImage;
+var temp;
 ////////////////////////////////////////////////////////////////////DO NOT DELETE
 $(function () {
 	if (navigator.geolocation) {
@@ -26,24 +27,25 @@ $(function () {
 
 $('#submit_Help').on('click', function(e){
 
-        if (navigator.geolocation) {
-        	navigator.geolocation.getCurrentPosition(function(position) {
-        		var pos = {
-        			lat: position.coords.latitude,
-        			lng: position.coords.longitude
-        		};
-        		pos.lat+= getRandom(0.0001,-0.0001);
-        		pos.lng+= getRandom(0.0001,-0.0001);
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var pos = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			};
+			pos.lat+= getRandom(0.0001,-0.0001);
+			pos.lng+= getRandom(0.0001,-0.0001);
 
-        		userLat = pos.lat;
-        		userLng = pos.lng;
-        		alert("Sending Request");	
+			userLat = pos.lat;
+			userLng = pos.lng;
+			alert("Sending Request");	
         		var timerval= new Date(new Date().getTime()).toLocaleTimeString(); // 11:18:48 AM
-        	
+
         		var testJson = {
         			Sender:$('#help_Name').val(),
         			Timestamp: timerval,
         			Type:$('#help_Emergency').val(),
+        			beingRescued:false,
         			LocationLong: userLat,
         			LocationLat: userLng
         		};
@@ -78,8 +80,8 @@ $('#submit_Help').on('click', function(e){
         }, function() {
         	handleLocationError(true, infoWindow, map.getCenter());
         });
-        } 
-        else {
+	} 
+	else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
@@ -151,12 +153,14 @@ function reloadPins()
 			});
 			marker.addListener('click', function () {
 				infowindow.open(map, marker);
+				temp=entry;
 				infowindow.setContent('<div class="info-window">' +
 					'<h3>Emergency Information</h3>' +
 					'<div class="info-content">' +
 					'<p> Name: ' +entry.Sender+' </p>'+
 					'<p>Emergency: '+entry.Type+'</p>'+
 					'<p>Time Posted: '+entry.Timestamp+'</p>'+
+					'<p>Being Rescued?: '+entry.beingRescued+'</p>'+
 					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()">Help This Person</button>' +
 					'</div>' +
 					'</div>');
@@ -166,8 +170,40 @@ function reloadPins()
 };
 
 
-
+$('#btn_Helpingn').on('click', function(e)
+{
+	alert("jasfklfjaklfak");
+});
 function btn_Helping()
 {
-	alert("WEEEEEEE");
+	var tempObj;
+	alert(temp.Sender);
+	
+	/*
+	var testRead= firebase.database().ref();
+	testRead.on('value', function(snapshot){
+		var arr=snapshotToArray(snapshot);
+		arr.forEach(function(entry) {
+			//Do something here
+			console.log(entry.key);
+			if(temp.Sender==entry.Sender)
+			{
+				console.log(temp.Sender + ' ' +entry.Sender);
+				tempObj=entry.key;
+			}
+			console.log(tempObj);
+		});
+	});
+	*/
+	  firebase.database().ref(temp.key).set({
+	  				Sender:temp.Sender,
+        			Timestamp: temp.Timestamp,
+        			Type:temp.Type,
+        			beingRescued:true,
+        			LocationLong: temp.LocationLong,
+        			LocationLat: temp.LocationLat
+
+	  });
+
+
 }
