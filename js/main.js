@@ -207,11 +207,11 @@ function reloadPins()
 			var marker = new google.maps.Marker({
 				position: {lat: entry.LocationLong, lng: entry.LocationLat},
 				map: map,
-				animation: google.maps.Animation.DROP,
+				
 				icon: "rescuer-icon.png",
 
 				icon: tmp,
-				animation: google.maps.Animation.DROP,
+				
 				icon: "rescuer-icon.png",
 				icon: tmp,
 				data:entry
