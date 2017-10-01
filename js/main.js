@@ -49,6 +49,7 @@ $('#submit_Help').on('click', function(e){
         			Timestamp: timerval,
         			Type:$('#help_Emergency').val(),
         			beingRescued:false,
+        			contact:$('#help_contact').val(),
         			LocationLong: userLat,
         			LocationLat: userLng
         		};
@@ -205,8 +206,9 @@ function reloadPins()
 					'<p> Name: ' +entry.Sender+' </p>'+
 					'<p>Emergency: '+entry.Type+'</p>'+
 					'<p>Time Posted: '+entry.Timestamp+'</p>'+
+					'<p>Contact Info: '+entry.contact+'</p>'+
 					'<p>Being Rescued?: '+entry.beingRescued+'</p>'+
-					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()">Help This Person</button>' +
+					'<button type="button" class="btn btn-success btn-lg" ID="btn_Helping" onclick="btn_Helping()" <a href ="mailto:'+entry.contact+'@txt.att.net?subject=test message">Help This Person</button>' +
 					'</div>' +
 					'</div>');
 			});
@@ -216,14 +218,10 @@ function reloadPins()
 }; 
 
 
-$('#btn_Helpingn').on('click', function(e)
-{
-	alert("jasfklfjaklfak");
-});
 function btn_Helping()
 {
 	var tempObj;
-	alert(temp.Sender);
+	//alert(temp.Sender);
 	
 	/*
 	var testRead= firebase.database().ref();
@@ -246,6 +244,7 @@ function btn_Helping()
         			Timestamp: temp.Timestamp,
         			Type:temp.Type,
         			beingRescued:true,
+        			contact:temp.contact,
         			LocationLong: temp.LocationLong,
         			LocationLat: temp.LocationLat
 
@@ -259,3 +258,6 @@ function clearOverlays() {
   }
   markers.length = 0;
 }
+
+
+
