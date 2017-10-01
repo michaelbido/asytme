@@ -50,6 +50,7 @@ $('#submit_Help').on('click', function(e){
         			Contact:$('#help_contact').val(),
         			LocationLong: userLat,
         			LocationLat: userLng
+        			//Picture:"bg2.png"
         		};
     		
             firebase.database().ref().push(testJson, function(e)
@@ -233,12 +234,12 @@ function reloadPins()
 
 $('#btn_Helpingn').on('click', function(e)
 {
-	alert("You are committing to rescue this person, continue?");
+	alert("Unknown");
 });
 function btn_Helping()
 {
 	var tempObj;
-	alert(temp.Sender);
+	alert("You are commiting to rescue this person: " + temp.Sender+", continue?");
 	
 	  firebase.database().ref(temp.key).set({
 	  				Sender:temp.Sender,
