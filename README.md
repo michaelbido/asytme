@@ -1,5 +1,5 @@
 # ASYT.ME - A Disaster Relief App
-This project was submitted to the HackUTA 2017 hackathon a earned the best disaster relief project.
+This proof-of-concept project was submitted to the HackUTA 2017 hackathon as a crowd-sourced tool to help those that are isolated in times of disaster. It a earned the best disaster relief project - it was motived by the impact of Hurricane Harvey in Houston, TX.
 
 This was built with HTML/JS/CSS, jQuery and the Google Maps API.
 
