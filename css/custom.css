@@ -1,18 +1,16 @@
-background {
+#background {
 	color:black;
 }
 
 #b-one{
-    min-height: 100 px
+    min-height: 100 px;
     min-width: 200 px;
     font-family: verdana;
     font-size: 16;
-
-    
 }
 
 #btwo{
-    min-height: 100 px
+    min-height: 100 px;
     min-width: 200 px;
     font-family: verdana;
     font-size: 16;
